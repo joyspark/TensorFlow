@@ -68,6 +68,6 @@ for i in range(test_data.shape[0]):
 	pre = sess.run(hypothesis, feed_dict={X: test_data[i].reshape(1,features)})
 	print(test_data[i],"==> ", pre[0])
 
-builder = tf.saved_model.builder.SavedModelBuilder("./model/fromPython")
+builder = tf.saved_model.builder.SavedModelBuilder("/tmp/fromPython")
 builder.add_meta_graph_and_variables(sess,[tf.saved_model.tag_constants.SERVING])
 builder.save()
