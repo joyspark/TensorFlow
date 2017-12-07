@@ -30,7 +30,7 @@ public class LoadPythonModel {
 		printMatrix(testInput);
 		
 		//load the model bundle
-		try(SavedModelBundle b = SavedModelBundle.load("tmp/fromPython", "serve")){
+		try(SavedModelBundle b = SavedModelBundle.load("/tmp/fromPython", "serve")){
 			
 			//create a session from the Bundle
 			Session sess = b.session();
