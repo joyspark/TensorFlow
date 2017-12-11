@@ -2,7 +2,8 @@
 Applications with TensorFlow
 
 
-Evironment
+<b>Evironment</b>
+
 
 OS : Windows 64bit
 
