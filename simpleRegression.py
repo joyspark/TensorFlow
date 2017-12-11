@@ -28,6 +28,7 @@ b = tf.Variable(tf.random_normal([1],dtype='float'), name='bias')
 
 # Construct a linear model
 hypothesis = tf.matmul(X, W, name='h') + b
+h = tf.identity(hypothesis, name='h')
 
 # Mean squared error
 cost = tf.reduce_mean(tf.square(hypothesis - Y))
