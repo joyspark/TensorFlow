@@ -1,4 +1,4 @@
-package co.kr.saramin.word2vec.wiki;
+package word2vec.wiki;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -113,7 +113,6 @@ public WikiEmbeddingMethods() {
 			for(int i=0; i<testIdxs.length; i++) {
 				Tensor x = Tensor.create(testIdxs);
 				
-				//여기서 for문으로 하나씩 적용해보기
 				//run the model and get the result
 				int[][] sim = sess.runner()
 						.feed("valid_dataset", x)
@@ -121,10 +120,11 @@ public WikiEmbeddingMethods() {
 						.run()
 						.get(0)
 						.copyTo(new int[dataSize][dicSize]);
-				
+				/*
 				System.out.println("before sort : " + sim[0][0]+", "+sim[0][1]+", "+sim[0][2]+", "+sim[0][3]);
 				Arrays.sort(sim[0]);
 				System.out.println("after sort : " + sim[0][0]+", "+sim[0][1]+", "+sim[0][2]+", "+sim[0][3]);
+				*/
 			}
 		}
 	}
