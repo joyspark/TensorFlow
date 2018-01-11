@@ -24,7 +24,7 @@ today_date = datetime.date.today().strftime("%Y%m%d")
 words = []
 # 단어 리스트 생성
 try:
-	with open('words.csv','r') as f :
+	with open('./dic/words.csv','r') as f :
 		for word in f.readline().split(',') :
 			words.append(word)
 except OSError as e:
@@ -40,7 +40,7 @@ print('words length : ',len(words))
 data = []
 # 단어 인텍스 리스트 생성
 try:
-	with open('data.csv','r') as f :
+	with open('./dic/data.csv','r') as f :
 		for idx in f.readline().split(',') :
 			data.append(int(idx))
 except OSError as e:
@@ -57,7 +57,7 @@ print('data length : ',len(data))
 ordered_words_dic = {}
 # 빈도수가 높은 단어 사전 생성{단어 : 인덱스}
 try:
-	with open('ordered_words.csv','r') as f :
+	with open('./dic/ordered_words.csv','r') as f :
 		words = f.readline().split(',')
 		for i in range(len(words)) :
 			ordered_words_dic[words[i]] = i
@@ -73,7 +73,7 @@ print('dataordered_words_dic length : ',len(ordered_words_dic))
 ordered_words = []
 # 빈도수가 높은 단어 사전 리스트 생성 [단어]
 try:
-	with open('ordered_words.csv','r') as f :
+	with open('./dic/ordered_words.csv','r') as f :
 		for word in f.readline().split(',') :
 			ordered_words.append(word)
 except OSError as e:
