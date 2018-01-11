@@ -1,9 +1,9 @@
-package co.kr.saramin.word2vec.wiki;
+package word2vec.wiki;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import co.kr.saramin.word2vec.wiki.WikiEmbeddingMethods;
+import word2vec.wiki.WikiEmbeddingMethods;
 
 public class WikiEmbeddingEx {
 
@@ -12,15 +12,15 @@ public class WikiEmbeddingEx {
 	 public static void main(String[] args) throws Exception {
 		 long startTime = System.currentTimeMillis();
 		 
-		 String modelPath = "model/embedding_java_2/";
-		 String dataPath= "data/";
+		 String modelPath = "model/embedding/";
+		 String dataPath= "dic/ordered_words.csv";
 		 
 		 // 사전 : <단어,인덱스> 맵
 		 Map<String, Integer> wordIdMap = new HashMap<String, Integer>();
-		 mthods.terminated(mthods.fileToMap(wordIdMap, false, dataPath+"ordered_words.csv"), "fileToMap : wordIdMap");
+		 mthods.terminated(mthods.fileToMap(wordIdMap, false, dataPath), "fileToMap : wordIdMap");
 		 // 사전 : <인덱스, 단어> 맵
 		 Map<String, Integer> idWordMap = new HashMap<String, Integer>();
-		 mthods.terminated(mthods.fileToMap(idWordMap, true, dataPath+"ordered_words.csv"),"fileToMap : idWordMap");
+		 mthods.terminated(mthods.fileToMap(idWordMap, true, dataPath),"fileToMap : idWordMap");
 		 
 		 int dicSize = wordIdMap.size();
 		 //System.out.println("Dic size : "+ dicSize);
