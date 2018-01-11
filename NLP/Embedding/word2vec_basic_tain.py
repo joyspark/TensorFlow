@@ -38,7 +38,7 @@ def read_file(file_path):
 		text = tf.compat.as_str(contents)
 	return text.split()
 
-words = read_file("./data/ko_wiki.txt")
+words = read_file("./data/ko_wiki_small.txt")
 print('words : ',words[:100])
 print('words length : ',len(words))
 
@@ -246,11 +246,13 @@ with tf.Session() as session:
 		_, loss_val = session.run([optimizer, loss], feed_dict=feed_dict)
 		average_loss += loss_val
 
-		if step % 2000 == 0:
+		#if step % 2000 == 0:
+		if step % 100 == 0:
 			if step > 0:
 				average_loss /= 2000
 			print('Average loss at step {} : {}'.format(step, average_loss))
 			average_loss = 0
+	final_embeddings = normalized_embeddings.eval()
 	#***************************** 학습 모델 저장 *****************************#
 	file_path = './model'
 	if(not os.path.exists(file_path)):
@@ -265,6 +267,46 @@ with tf.Session() as session:
 		os.makedirs("./model")
 	save_path = saver.save(session, "./model/"+today_date+"/model.chpk")
 	print("Model saved in file : ", save_path)
+
+# Step 6: embeddings 시각화
+
+def plot_with_labels(low_dim_embs, labels, filename='tsne.png'):
+	assert low_dim_embs.shape[0] >= len(labels), 'More labels than embeddings'
+
+	plt.figure(figsize=(18, 18))# in inches
+
+	# 재구성한 코드
+	for (x, y), label in zip(low_dim_embs, labels):
+		plt.scatter(x, y)
+		plt.annotate(label,
+				xy=(x, y),
+				xytext=(5, 2),
+				textcoords='offset points',
+				ha='right',
+				va='bottom')
+	plt.savefig(filename)
+
+try:
+	from sklearn.manifold import TSNE
+	import matplotlib.pyplot as plt
+	from matplotlib.pyplot import rc
+	rc('font',family='New Gulim') # 한글 폰트 설정 (안해주면 한글 안나옴)
+	#low_dim_embs 내부 갯수와 n_components가 같아야 한다.
+	# n_components : 차원. default는 2.
+	# perplexity : 가장 가까운 이웃 갯수. 보통 5~50. default는 30.
+	# n_iter : 최적화에 사용할 반복 횟수. 최소 200. default는 1000.
+	# init : embedding 초기화 방법. random과 pca 중에서 선택. pca가 보다 안정적. default는 random.
+	tsne = TSNE(perplexity=30, n_components=2, init='pca', n_iter=1000)
+
+	# plot 갯수. 50000개의 embeddings로부터 앞쪽 일부만 사용.
+	# low_dim_embs에는 변환된 좌표 x, y가 들어있다.
+	plot_only = 300
+	low_dim_embs = tsne.fit_transform(final_embeddings[:plot_only])     # (500, 2)
+	labels = ordered_words[:plot_only]                                  # 재구성한 코드
+
+	plot_with_labels(low_dim_embs, labels)
+except ImportError:
+	print('Please install sklearn, matplotlib, and scipy to show embeddings.')
 	
 end_time = datetime.datetime.now()
 train_end = end_time.strftime('%Y%m%d:%H%M%S')
