@@ -8,12 +8,12 @@ learning_rate = 0.3
 training_epochs = 500
 
 # real data
-data = np.loadtxt('./data/train.csv', delimiter=',', dtype=str).astype(np.float32)
+data = np.loadtxt('./data/train.csv', delimiter=',', dtype=np.int64).astype(np.float32)
 input = data[:,:-1]
 output = data[:,-1].reshape([len(data),1])
 features = input.shape[1]
 
-test_data = np.loadtxt('./data/test.csv', delimiter=',', dtype=str).astype(np.float32)
+test_data = np.loadtxt('./data/test.csv', delimiter=',', dtype=np.int64).astype(np.float32)
 test_data = test_data.reshape([-1, features]) # make uniform shape
 
 print (input.shape, output.shape)
