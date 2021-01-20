@@ -1,3 +1,6 @@
+"""
+CHAPTER15 RNN과 CNN을 사용해 시퀀스 처리하기 (p597~)
+"""
 import modules
 import models
 
@@ -62,6 +65,8 @@ def ex3():
     Y_test = Y[9000:]
 
     m = models.simple_rnn_2(10)
+    print('[model]')
+    m.summary()
 
     optimizer = keras.optimizers.Adam(lr=0.01)
     m.compile(loss="mse", optimizer=optimizer, metrics=[last_time_step_mse])
